@@ -3,5 +3,5 @@ class Micropost < ActiveRecord::Base
   belongs_to :user
 
   validates :content, length: {maximum: 140}
-  validates :user, presence: TRUE
+  validates :user, presence: {message: "does not exists!!"}
 end

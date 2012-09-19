@@ -17,7 +17,13 @@
   </div>
   <div class="field">
     <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
+    <!-- Utpal - First variation directly talks to DB. Violates MVC
+                 Second variation takes care of 1 by delegating DB access to controller
+                 Third variation modularize the code by putting the logic into helper module
+    <%= f.select :user_id, User.all.map{|user| [user.email, user.id]} %>
+    <%= f.select :user_id, @user.map {|user| [user.email, user.id]} %>
+    -->
+    <%= f.select :user_id, get_users(@user) %>
   </div>
   <div class="actions">
     <%= f.submit %>

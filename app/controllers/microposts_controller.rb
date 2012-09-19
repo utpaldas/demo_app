@@ -1,6 +1,11 @@
 class MicropostsController < ApplicationController
+
+  # Utpal - Filter fires before invoking the action
+  before_filter :fetch_users, only: [:new, :edit]
+
   # GET /microposts
   # GET /microposts.json
+  # Utpal - @micropost is an instance variable of object Micropost.
   def index
     @microposts = Micropost.all
 
@@ -25,6 +30,7 @@ class MicropostsController < ApplicationController
   # GET /microposts/new.json
   def new
     @micropost = Micropost.new
+    #@user=User.all      #This call is made redundant with fetch_user filter
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +41,7 @@ class MicropostsController < ApplicationController
   # GET /microposts/1/edit
   def edit
     @micropost = Micropost.find(params[:id])
+    #@user=User.all      #This call is made redundant with fetch_user filter
   end
 
   # POST /microposts
@@ -79,5 +86,10 @@ class MicropostsController < ApplicationController
       format.html { redirect_to microposts_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def fetch_users
+    @user = User.all
   end
 end
